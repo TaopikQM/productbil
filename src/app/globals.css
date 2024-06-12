@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* app/globals.css */
+.input {
+  @apply border rounded w-full p-2 mb-4;
+}
+.btn {
+  @apply bg-blue-500 text-white py-2 px-4 rounded;
+}
+.container {
+  @apply mx-auto p-4;
+}
+
+/* File: styles/globals.css */
+.nav-link {
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-link-active {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: yellow; /* Sesuaikan sesuai keinginan Anda */
+}
+
+.nav-link {
+  @apply px-4 py-2 transition-colors;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-link-active {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: yellow; /* Sesuaikan sesuai keinginan Anda */
+}
+
+.slick-dotss li {
+  display: inline-block;
+  margin: 29px 1px; /* Sesuaikan jarak antar dots dengan kebutuhan */
+}

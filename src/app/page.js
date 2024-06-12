@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 
-import ContainerAw from '../components/containerAw';
+import ContainerAw from './components/containerAw';
 
-import AddProduct from '../components/AddProduct';
+import AddProduct from './components/AddProduct';
 
-import ProductList from '../components/ProductList';
-import Navbar from '../components/Navbar';
+import ProductList from './components/ProductList';
+import Navbar from './components/Navbar';
 
 
 export default function Home() {

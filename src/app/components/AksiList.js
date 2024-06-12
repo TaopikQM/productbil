@@ -106,7 +106,7 @@ const AksiList = ({ navigateToReviewPage}) => {
                 <div className="text-sm text-gray-900">{place.name}</div>
                </td>
               
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-4 whitespace-normal max-w-xs text-sm text-gray-900">
                 {place.description}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

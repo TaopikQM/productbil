@@ -13,7 +13,7 @@ const Navbar = () => {
     <Link href="/" passHref>
           <div className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer">
             <img src="https://firebasestorage.googleapis.com/v0/b/dolanrek-f88ad.appspot.com/o/logo-awal%2FLogo.png?alt=media&token=f0ea354a-5ab3-480e-8af8-c703495d5433" className="h-8" alt="Flowbite Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Environment</span>
           </div>
         </Link>
        

@@ -57,10 +57,15 @@ const AddFiles = () => {
         
         // Get the download URL of the uploaded file
         const downloadURL = await getDownloadURL(snapshot.ref);
+
+        
+        // Get current date for createdTime metadata
+        const createdTime = new Date().toISOString();
         
         return {
           name: fileNames[file.name], // Use custom name if specified
           url: downloadURL,
+           createdTime,
         };
       });
 

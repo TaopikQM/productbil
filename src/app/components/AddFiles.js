@@ -85,7 +85,7 @@ const AddFiles = () => {
           id="images" // Changed the ID to a more generic name
           multiple
           accept="*/*" // This will allow all file types, including images and videos
-          onChange={handleFileChange} // Changed the handler function name to reflect that it handles files
+          onChange={handleImageChange} // Changed the handler function name to reflect that it handles files
           className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
         />
 

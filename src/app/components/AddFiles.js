@@ -67,7 +67,6 @@ const AddFiles = () => {
 
       // Save the uploaded file URLs and custom names in the real-time database
       await set(newWisataRef, {
-        id: newWisataKey,
         files: uploadedFiles,
       });
 

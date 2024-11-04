@@ -6,6 +6,8 @@ import { ref as databaseRef, push, set } from "firebase/database";
 const AddFiles = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileNames, setFileNames] = useState({});
+   const [isLoading, setIsLoading] = useState(false); // Tambahkan state isLoading
+  
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -83,7 +85,7 @@ const AddFiles = () => {
 
   return (
     <div>
-      <h2>Upload Multiple Files</h2>
+      <h2>Upload Files</h2>
 
       {/* File Input */}
       <input type="file" multiple onChange={handleFileChange} />
@@ -110,7 +112,14 @@ const AddFiles = () => {
       </div>
 
       {/* Submit Button */}
-      <button onClick={handleSubmit} style={{ marginTop: '20px' }}>Submit</button>
+        <button
+          type="handleSubmit"
+          disabled={isLoading} // Tambahkan properti disabled berdasarkan isLoading
+          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+         {isLoading ? "Adding..." : "Add"} {/* Ubah label tombol berdasarkan isLoading */}
+     
+        </button>
     </div>
   );
 };

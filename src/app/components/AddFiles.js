@@ -57,12 +57,12 @@ const AddFiles = () => {
       
 
       setIsLoading(false); // Selesai upload
-      alert("Place added successfully!"); 
+      alert("Files added successfully!"); 
       window.location.reload(); // Refresh the page
     } catch (error) {
         setIsLoading(false); // Selesai upload dengan kesalahan
       console.error("Error adding document: ", error);
-      alert("Error adding place.");
+      alert("Error adding Files.");
     }
   };
 
@@ -80,26 +80,6 @@ const AddFiles = () => {
         />
       </div>
      
-      // <div>
-      //   <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
-      //   <input
-      //     type="number"
-      //     id="price"
-      //     value={price}
-      //     onChange={(e) => setPrice(e.target.value)}
-      //     className="mt-1 block  h-9 w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-      //   />
-      // </div>
-      // <div>
-      //   <label htmlFor="rate" className="block text-sm font-medium text-gray-700">Rate</label>
-      //   <input
-      //     type="number"
-      //     id="rate"
-      //     value={rate}
-      //     onChange={(e) => setRate(e.target.value)}
-      //     className="mt-1 block h-9 w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-      //   />
-      // </div>
        <input
           type="file"
           id="images" // Changed the ID to a more generic name

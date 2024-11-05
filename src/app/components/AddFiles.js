@@ -42,6 +42,8 @@ const AddFiles = () => {
       alert('Please select files to upload.');
       return;
     }
+    
+    setIsLoading(true);
 
     try {
       // Push a new entry in the database to generate a unique key for the "product_L" entry
@@ -59,13 +61,15 @@ const AddFiles = () => {
         const downloadURL = await getDownloadURL(snapshot.ref);
 
         
-        // Get current date for createdTime metadata
-        const createdTime = new Date().toISOString();
-        
+       // Calculate Jakarta time for createdTime
+        const currentDate = new Date();
+        const jakartaOffset = 7 * 60 * 60 * 1000; // UTC+7 in milliseconds
+        const jakartaTime = new Date(currentDate.getTime() + jakartaOffset).toISOString();
+
         return {
           name: fileNames[file.name], // Use custom name if specified
           url: downloadURL,
-          createdTime,
+          createdTime: jakartaTime,
         };
       });
 
@@ -82,9 +86,12 @@ const AddFiles = () => {
       // Clear the file selection after upload
       setSelectedFiles([]);
       setFileNames({});
+      window.location.reload();
     } catch (error) {
       console.error("Error uploading files:", error);
       alert('Error uploading files. Please try again.');
+    }finally {
+      setIsLoading(false);
     }
   };
 

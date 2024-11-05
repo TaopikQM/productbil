@@ -44,15 +44,15 @@ const FilesList = () => {
 
     // Filter by year and month
     if (yearFilter) {
-      filtered = filtered.filter(file => new Date(file.date).getFullYear().toString() === yearFilter);
+      filtered = filtered.filter(file => new Date(file.createdTime).getFullYear().toString() === yearFilter);
     }
     if (monthFilter) {
-      filtered = filtered.filter(file => new Date(file.date).getMonth().toString() === monthFilter);
+      filtered = filtered.filter(file => new Date(file.createdTime).getMonth().toString() === monthFilter);
     }
 
     // Filter by specific date
     if (dateFilter) {
-      filtered = filtered.filter(file => new Date(file.date).toDateString() === new Date(dateFilter).toDateString());
+      filtered = filtered.filter(file => new Date(file.createdTime).toDateString() === new Date(dateFilter).toDateString());
     }
 
     // Search filter (case insensitive)

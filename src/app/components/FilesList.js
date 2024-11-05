@@ -139,16 +139,18 @@ const FilesList = ({isDayMode}) => {
             key={index} 
             className={`border rounded-lg shadow p-4 text-center ${isDayMode ? 'bg-white' : 'bg-gray-800'} transition-colors duration-300`}
           >
-            {file.type === 'image' ? (
-              <img src={file.url} alt={file.name} className="w-full h-32 object-cover mb-2 rounded" />
-            ) : file.type === 'video' ? (
-              <video controls src={file.url} className="w-full h-32 mb-2 rounded" />
-            ) : (
-              <div className={`h-32 flex items-center justify-center ${isDayMode ? 'bg-gray-100' : 'bg-gray-700'} rounded`}>
-                📄 {file.name}
-              </div>
-            )}
-            <p className={`text-sm mt-2 ${isDayMode ? 'text-black' : 'text-white'}`}>{file.name}</p>
+              <a href={file.url} target="_blank" rel="noopener noreferrer">
+                {file.type === 'image' ? (
+                  <img src={file.url} alt={file.name} className="w-full h-32 object-cover mb-2 rounded" />
+                ) : file.type === 'video' ? (
+                  <video controls src={file.url} className="w-full h-32 mb-2 rounded" />
+                ) : (
+                  <div className={`h-32 flex items-center justify-center ${isDayMode ? 'bg-gray-100' : 'bg-gray-700'} rounded`}>
+                    📄 {file.name}
+                  </div>
+                )}
+                <p className={`text-sm mt-2 ${isDayMode ? 'text-black' : 'text-white'}`}>{file.name}</p>
+           </a>
           </div>
         ))}
       </div>

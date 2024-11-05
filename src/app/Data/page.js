@@ -56,7 +56,7 @@ const addFiles = () => {
         <FilesList isDayMode={isDayMode} /> {/* Pass isDayMode prop */}
       </ContainerAw>
     </div>
-  );
+
   );
 };
 

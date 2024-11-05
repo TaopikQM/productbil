@@ -88,58 +88,68 @@ const AddFiles = () => {
   };
 
   return (
-    <div  className=" text-black"> 
-      <h2>Upload Files or Folder</h2>
+   <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-black p-6">
+  <h2 className="text-2xl font-semibold mb-4">Upload Files or Folder</h2>
 
-      {/* Toggle between File and Folder Upload */}
-      <label>
-        Select Upload Type: 
-        <select onChange={(e) => setUploadType(e.target.value)} value={uploadType}>
-          <option value="files">Files</option>
-          <option value="folder">Folder</option>
-        </select>
-      </label>
+  {/* Toggle between File and Folder Upload */}
+  <label className="mb-2">
+    Select Upload Type:
+    <select
+      onChange={(e) => setUploadType(e.target.value)}
+      value={uploadType}
+      className="ml-2 border border-gray-300 rounded p-1"
+    >
+      <option value="files">Files</option>
+      <option value="folder">Folder</option>
+    </select>
+  </label>
 
-      {/* File/Folder Input */}
-      <input
-        type="file"
-        multiple={uploadType === "files"}
-        webkitdirectory={uploadType === "folder" ? "true" : undefined}
-        onChange={handleFileChange}
-        style={{ display: 'block', marginTop: '10px' }}
-      />
+  {/* File/Folder Input */}
+  <input
+    type="file"
+    multiple={uploadType === "files"}
+    webkitdirectory={uploadType === "folder" ? "true" : undefined}
+    onChange={handleFileChange}
+    className="mt-4 border border-gray-300 rounded p-2 w-full max-w-md"
+  />
 
-      {/* Selected Files Preview */}
-      <div style={{ marginTop: '20px' }}>
-        {selectedFiles.map((file) => (
-          <div key={file.webkitRelativePath || file.name} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <span style={{ marginRight: '10px' }}>{file.webkitRelativePath || file.name}</span>
+  {/* Selected Files Preview */}
+  <div className="mt-4 w-full max-w-md">
+    {selectedFiles.map((file) => (
+      <div key={file.webkitRelativePath || file.name} className="flex items-center justify-between border-b py-2">
+        <span className="flex-1 text-gray-800">{file.webkitRelativePath || file.name}</span>
 
-            {/* Name Input */}
-            <input
-              type="text"
-              placeholder="Enter file name"
-              value={fileNames[file.webkitRelativePath || file.name] || ""}
-              onChange={(e) => handleNameChange(e, file.webkitRelativePath || file.name)}
-              style={{ marginRight: '10px' }}
-            />
+        {/* Name Input */}
+        <input
+          type="text"
+          placeholder="Enter file name"
+          value={fileNames[file.webkitRelativePath || file.name] || ""}
+          onChange={(e) => handleNameChange(e, file.webkitRelativePath || file.name)}
+          className="border border-gray-300 rounded p-1 ml-2 flex-1"
+        />
 
-            {/* Remove Button */}
-            <button onClick={() => removeFile(file.webkitRelativePath || file.name)}>X</button>
-          </div>
-        ))}
+        {/* Remove Button */}
+        <button
+          onClick={() => removeFile(file.webkitRelativePath || file.name)}
+          className="ml-2 text-red-500 hover:text-red-700"
+        >
+          X
+        </button>
       </div>
+    ))}
+  </div>
 
-      {/* Submit Button */}
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={isLoading}
-        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        {isLoading ? "Adding..." : "Add"}
-      </button>
-    </div>
+  {/* Submit Button */}
+  <button
+    type="button"
+    onClick={handleSubmit}
+    disabled={isLoading}
+    className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+  >
+    {isLoading ? "Adding..." : "Add"}
+  </button>
+</div>
+
   );
 };
 

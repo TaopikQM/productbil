@@ -149,8 +149,7 @@ const FilesList = ({isDayMode}) => {
                     📄 {file.name}
                   </div>
                 )}
-                <p className={`text-sm mt-2 ${isDayMode ? 'text-black' : 'text-white'}`}>{file.name}</p>
-           </a>
+                 </a>
           </div>
         ))}
       </div>
@@ -202,6 +201,8 @@ const FilesList = ({isDayMode}) => {
 
 export default FilesList;
 
+ // <p className={`text-sm mt-2 ${isDayMode ? 'text-black' : 'text-white'}`}>{file.name}</p>
+         
         //        <select
         //   value={yearFilter}
         //   onChange={(e) => setYearFilter(e.target.value)}

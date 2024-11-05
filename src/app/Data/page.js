@@ -24,12 +24,13 @@ const addFiles = () => {
     <div className={isDayMode ? 'bg-white text-black' : 'bg-gray-800 text-white'}> {/* Conditional class names */}
       <ContainerAw>
         <div className="flex items-center justify-between mb-4">
-          <button 
-            className={`py-2 px-4 rounded ${isDayMode ? 'bg-blue-500 hover:bg-blue-700' : 'bg-blue-700 hover:bg-blue-500'}`} 
-            onClick={toggleForm}
-          >
-            Add Files
-          </button>
+          <button
+  type="button"
+  className={`py-2 px-4 rounded ${showForm ? 'bg-red-700 hover:bg-red-800 focus:ring-red-300' : isDayMode ? 'bg-blue-500 hover:bg-blue-700' : 'bg-blue-700 hover:bg-blue-500'} focus:outline-none text-white font-medium text-sm`}
+  onClick={toggleForm}
+>
+  {showForm ? 'Back' : 'Add Files'}
+</button>
           
               <div className="flex items-center">
             {/* Toggle Switch */}

@@ -11,7 +11,6 @@ const FilesList = ({isDayMode}) => {
   const [yearFilter, setYearFilter] = useState('');
   const [monthFilter, setMonthFilter] = useState('');
   const [dateFilter, setDateFilter] = useState(''); // New date filter
-  const [isDayMode, setIsDayMode] = useState(true); // Day/Night toggle
  
   const [itemsPerPage, setItemsPerPage] = useState(30); // State for items per page
   const itemsPerPageOptions = [30, 50, 100];

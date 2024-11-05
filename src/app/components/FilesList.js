@@ -71,7 +71,7 @@ const FilesList = ({isDayMode}) => {
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
-    setCurrentPage(1; // Reset to first page on items per page change
+    setCurrentPage(1); // Reset to first page on items per page change
   };
 
   // Pagination logic

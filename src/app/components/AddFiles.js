@@ -65,7 +65,7 @@ const AddFiles = () => {
         return {
           name: fileNames[file.name], // Use custom name if specified
           url: downloadURL,
-           createdTime,
+          createdTime,
         };
       });
 

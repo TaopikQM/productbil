@@ -158,7 +158,7 @@ const FilesList = ({isDayMode}) => {
       {filteredFiles.length > itemsPerPage && (
         <nav className="flex justify-between items-center mt-4" aria-label="Table navigation">
           <span className="text-sm text-gray-500">Page {currentPage} of {totalPages}</span>
-          <ul className="inline-flex items-center space-x-1">
+          <ul className="inline-flex  text-black items-center space-x-1">
             <li>
               <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}

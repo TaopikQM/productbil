@@ -15,7 +15,7 @@ const AddFiles = () => {
     files.forEach(file => {
       setFileNames(prevFileNames => ({
         ...prevFileNames,
-        [file.name]: file.name // Default custom name is the original file name
+       [file.webkitRelativePath || file.name]: file.name// Default custom name is the original file name
       }));
     });
   };
@@ -52,6 +52,8 @@ const AddFiles = () => {
 
       // Upload each file and store its URL in the database
       const uploadPromises = selectedFiles.map(async (file) => {
+         const filePath = file.webkitRelativePath || file.name;
+       
         const fileRef = storageRef(storage, `product_L/${newWisataKey}/${file.name}`);
         
         // Upload the file to Firebase storage
@@ -67,7 +69,7 @@ const AddFiles = () => {
         const jakartaTime = new Date(currentDate.getTime() + jakartaOffset).toISOString();
 
         return {
-          name: fileNames[file.name], // Use custom name if specified
+          Name: fileNames[filePath],
           url: downloadURL,
           createdTime: jakartaTime,
         };
@@ -100,25 +102,24 @@ const AddFiles = () => {
       <h2>Upload Files</h2>
 
       {/* File Input */}
-      <input type="file" multiple onChange={handleFileChange} />
+       <input type="file" multiple webkitdirectory="true" onChange={handleFileChange} />
+
 
       {/* Selected Files Preview */}
       <div style={{ marginTop: '20px' }}>
         {selectedFiles.map((file) => (
-          <div key={file.name} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <span style={{ marginRight: '10px' }}>{file.name}</span>
+          <div key={file.webkitRelativePath || file.name} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+            <span style={{ marginRight: '10px' }}>{file.webkitRelativePath || file.name}</span>
 
-            {/* Name Input */}
             <input
               type="text"
               placeholder="Enter file name"
-              value={fileNames[file.name] || ""}
-              onChange={(e) => handleNameChange(e, file.name)}
+              value={fileNames[file.webkitRelativePath || file.name] || ""}
+              onChange={(e) => handleNameChange(e, file.webkitRelativePath || file.name)}
               style={{ marginRight: '10px' }}
             />
 
-            {/* Remove Button */}
-            <button onClick={() => removeFile(file.name)}>X</button>
+            <button onClick={() => removeFile(file.webkitRelativePath || file.name)}>X</button>
           </div>
         ))}
       </div>
@@ -130,7 +131,7 @@ const AddFiles = () => {
           disabled={isLoading} // Tambahkan properti disabled berdasarkan isLoading
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-         {isLoading ? "Adding..." : "Add"} {/* Ubah label tombol berdasarkan isLoading */}
+         {isLoading ? "Loading..." : "Add"} {/* Ubah label tombol berdasarkan isLoading */}
      
         </button>
     </div>

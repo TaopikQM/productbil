@@ -97,7 +97,7 @@ const FilesList = ({isDayMode}) => {
   return (
     <div className={isDayMode ? 'bg-white text-black' : 'bg-gray-800 text-white'}> {/* Tailwind for day/night mode */}
       {/* Search and Filter Bar */}
-      <div className="flex flex-wrap gap-4 mb-4 p-4">
+      <div className="flex flex-wrap gap-4 mb-4 p-4  text-black">
         <input
           type="text"
           placeholder="Search files..."
@@ -105,26 +105,7 @@ const FilesList = ({isDayMode}) => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="p-2 border rounded w-full md:w-auto border-gray-300"
         />
-        <select
-          value={yearFilter}
-          onChange={(e) => setYearFilter(e.target.value)}
-          className="p-2 border rounded w-full md:w-auto border-gray-300"
-        >
-          <option value="">Filter by Year</option>
-          {[2023, 2024].map(year => (
-            <option key={year} value={year}>{year}</option>
-          ))}
-        </select>
-        <select
-          value={monthFilter}
-          onChange={(e) => setMonthFilter(e.target.value)}
-          className="p-2 border rounded w-full md:w-auto border-gray-300"
-        >
-          <option value="">Filter by Month</option>
-          {Array.from({ length: 12 }, (_, i) => (
-            <option key={i} value={i}>{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
-          ))}
-        </select>
+       
         <input
           type="date"
           value={dateFilter}
@@ -135,7 +116,7 @@ const FilesList = ({isDayMode}) => {
       </div>
 
       {/* Total Filtered Files Display */}
-      <div className="flex items-center">
+      <div className="flex items-center  text-black">
           <select
             id="itemsPerPage"
             value={itemsPerPage}
@@ -219,6 +200,26 @@ const FilesList = ({isDayMode}) => {
 
 export default FilesList;
 
+        //        <select
+        //   value={yearFilter}
+        //   onChange={(e) => setYearFilter(e.target.value)}
+        //   className="p-2 border rounded w-full md:w-auto border-gray-300"
+        // >
+        //   <option value="">Filter by Year</option>
+        //   {[2023, 2024].map(year => (
+        //     <option key={year} value={year}>{year}</option>
+        //   ))}
+        // </select>
+        // <select
+        //   value={monthFilter}
+        //   onChange={(e) => setMonthFilter(e.target.value)}
+        //   className="p-2 border rounded w-full md:w-auto border-gray-300"
+        // >
+        //   <option value="">Filter by Month</option>
+        //   {Array.from({ length: 12 }, (_, i) => (
+        //     <option key={i} value={i}>{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
+        //   ))}
+        // </select>
 // import React, { useState, useEffect } from 'react';
 // import { getDatabase, ref as databaseRef, onValue } from 'firebase/database';
 // import { rtdb, storage } from '../config/firebase';

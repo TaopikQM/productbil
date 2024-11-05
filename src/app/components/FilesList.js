@@ -138,20 +138,26 @@ const FilesList = () => {
       </div>
 
       {/* File Display */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {currentFiles.map((file, index) => (
-          <div key={index} className="border rounded-lg shadow p-4 text-center bg-white dark:bg-gray-700">
+          <div 
+            key={index} 
+            className={`border rounded-lg shadow p-4 text-center ${isDayMode ? 'bg-white' : 'bg-gray-800'} transition-colors duration-300`}
+          >
             {file.type === 'image' ? (
               <img src={file.url} alt={file.name} className="w-full h-32 object-cover mb-2 rounded" />
             ) : file.type === 'video' ? (
               <video controls src={file.url} className="w-full h-32 mb-2 rounded" />
             ) : (
-              <div className="h-32 flex items-center justify-center bg-gray-100 rounded dark:bg-gray-600">📄 {file.name}</div>
+              <div className={`h-32 flex items-center justify-center ${isDayMode ? 'bg-gray-100' : 'bg-gray-700'} rounded`}>
+                📄 {file.name}
+              </div>
             )}
-            <p className="text-sm mt-2">{file.name}</p>
+            <p className={`text-sm mt-2 ${isDayMode ? 'text-black' : 'text-white'}`}>{file.name}</p>
           </div>
         ))}
       </div>
+
 
       {/* Pagination */}
       {filteredFiles.length > itemsPerPage && (

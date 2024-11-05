@@ -48,8 +48,7 @@ const addFiles = () => {
               {isDayMode ? '☀️' : '🌙'}
             </span>
           </div>
-            {isDayMode ? 'Switch to Night Mode' : 'Switch to Day Mode'}
-          </button>
+           
         </div>
         
         {showForm && <AddFiles />}

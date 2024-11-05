@@ -3,7 +3,7 @@ import { getDatabase, ref as databaseRef, onValue } from 'firebase/database';
 import { rtdb, storage } from '../config/firebase';
 import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage';
 
-const FilesList = () => {
+const FilesList = ({isDayMode}) => {
   const [files, setFiles] = useState([]);
   const [filteredFiles, setFilteredFiles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,7 +12,10 @@ const FilesList = () => {
   const [monthFilter, setMonthFilter] = useState('');
   const [dateFilter, setDateFilter] = useState(''); // New date filter
   const [isDayMode, setIsDayMode] = useState(true); // Day/Night toggle
-  const itemsPerPage = 30;
+ 
+  const [itemsPerPage, setItemsPerPage] = useState(30); // State for items per page
+  const itemsPerPageOptions = [30, 50, 100];
+
 
   // Firebase setup
   useEffect(() => {
@@ -65,6 +68,11 @@ const FilesList = () => {
     setFilteredFiles(filtered);
     setCurrentPage(1); // Reset to first page on filter change
   }, [files, searchQuery, yearFilter, monthFilter, dateFilter]);
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1; // Reset to first page on items per page change
+  };
 
   // Pagination logic
   const totalPages = Math.ceil(filteredFiles.length / itemsPerPage);
@@ -124,18 +132,25 @@ const FilesList = () => {
           onChange={(e) => setDateFilter(e.target.value)}
           className="p-2 border rounded w-full md:w-auto border-gray-300"
         />
-        <button 
-          onClick={() => setIsDayMode(prev => !prev)}
-          className="p-2 border rounded w-auto flex items-center border-gray-300"
-        >
-          {isDayMode ? <span role="img" aria-label="moon">🌙</span> : <span role="img" aria-label="sun">☀️</span>}
-        </button>
+       
       </div>
 
       {/* Total Filtered Files Display */}
-      <div className="mb-4 text-sm">
-        Total files: {filteredFiles.length}
-      </div>
+      <div className="flex items-center">
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={handleItemsPerPageChange}
+            className="border rounded px-2 py-1"
+          >
+            {itemsPerPageOptions.map(option => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+          <div className="mt-4 text-sm text-gray-500">
+            Total Files: {filteredFiles.length}
+          </div>
+        </div>
 
       {/* File Display */}
      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">

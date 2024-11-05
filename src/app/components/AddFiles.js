@@ -1,22 +1,23 @@
+
+
 import React, { useState } from 'react';
 import { storage, rtdb } from '../config/firebase';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { ref as databaseRef, push, set } from "firebase/database";
 
 const AddFiles = () => {
+  const [uploadType, setUploadType] = useState("files"); // "files" or "folder"
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileNames, setFileNames] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setSelectedFiles(prevFiles => [...prevFiles, ...files]);
-
+    setSelectedFiles(files);
     files.forEach(file => {
-      const filePath = file.webkitRelativePath || file.name;
       setFileNames(prevFileNames => ({
         ...prevFileNames,
-        [filePath]: file.name
+        [file.webkitRelativePath || file.name]: file.name // Default name
       }));
     });
   };
@@ -40,7 +41,7 @@ const AddFiles = () => {
 
   const handleSubmit = async () => {
     if (selectedFiles.length === 0) {
-      alert('Please select files or folders to upload.');
+      alert('Please select files or a folder to upload.');
       return;
     }
 
@@ -88,13 +89,22 @@ const AddFiles = () => {
 
   return (
     <div>
-      <h2>Upload Files or Folders</h2>
+      <h2>Upload Files or Folder</h2>
 
-      {/* Multiple File Input */}
+      {/* Toggle between File and Folder Upload */}
+      <label>
+        Select Upload Type: 
+        <select onChange={(e) => setUploadType(e.target.value)} value={uploadType}>
+          <option value="files">Files</option>
+          <option value="folder">Folder</option>
+        </select>
+      </label>
+
+      {/* File/Folder Input */}
       <input
         type="file"
-        webkitdirectory="true" // This allows folder selection
-        multiple // Allow multiple file selection
+        multiple={uploadType === "files"}
+        webkitdirectory={uploadType === "folder" ? "true" : undefined}
         onChange={handleFileChange}
         style={{ display: 'block', marginTop: '10px' }}
       />
@@ -134,295 +144,6 @@ const AddFiles = () => {
 };
 
 export default AddFiles;
-
-// import React, { useState } from 'react';
-// import { storage, rtdb } from '../config/firebase';
-// import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-// import { ref as databaseRef, push, set } from "firebase/database";
-
-// const AddFiles = () => {
-//   const [selectedFiles, setSelectedFiles] = useState([]);
-//   const [fileNames, setFileNames] = useState({});
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   const handleFolderChange = (e) => {
-//     const files = Array.from(e.target.files);
-//     setSelectedFiles(prevFiles => [...prevFiles, ...files]);
-
-//     files.forEach(file => {
-//       const filePath = file.webkitRelativePath || file.name;
-//       setFileNames(prevFileNames => ({
-//         ...prevFileNames,
-//         [filePath]: file.name
-//       }));
-//     });
-//   };
-
-//   const handleNameChange = (e, filePath) => {
-//     const newName = e.target.value;
-//     setFileNames(prevFileNames => ({
-//       ...prevFileNames,
-//       [filePath]: newName
-//     }));
-//   };
-
-//   const removeFile = (filePath) => {
-//     setSelectedFiles(prevFiles => prevFiles.filter(file => (file.webkitRelativePath || file.name) !== filePath));
-//     setFileNames(prevFileNames => {
-//       const newFileNames = { ...prevFileNames };
-//       delete newFileNames[filePath];
-//       return newFileNames;
-//     });
-//   };
-
-//   const handleSubmit = async () => {
-//     if (selectedFiles.length === 0) {
-//       alert('Please select files or folders to upload.');
-//       return;
-//     }
-
-//     setIsLoading(true);
-
-//     try {
-//       const newEntryRef = push(databaseRef(rtdb, 'product_L'));
-//       const newEntryKey = newEntryRef.key;
-
-//       const uploadPromises = selectedFiles.map(async (file) => {
-//         const filePath = file.webkitRelativePath || file.name;
-//         const fileRef = storageRef(storage, `product_L/${newEntryKey}/${filePath}`);
-        
-//         const snapshot = await uploadBytes(fileRef, file);
-//         const downloadURL = await getDownloadURL(snapshot.ref);
-
-//         const currentDate = new Date();
-//         const jakartaOffset = 7 * 60 * 60 * 1000;
-//         const jakartaTime = new Date(currentDate.getTime() + jakartaOffset).toISOString();
-
-//         return {
-//           name: fileNames[filePath],
-//           url: downloadURL,
-//           createdTime: jakartaTime,
-//         };
-//       });
-
-//       const uploadedFiles = await Promise.all(uploadPromises);
-
-//       await set(newEntryRef, {
-//         files: uploadedFiles,
-//       });
-
-//       alert('Files uploaded successfully!');
-//       setSelectedFiles([]);
-//       setFileNames({});
-//       window.location.reload();
-//     } catch (error) {
-//       console.error("Error uploading files:", error);
-//       alert('Error uploading files. Please try again.');
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Upload Files or Folders</h2>
-
-//       {/* Folder Input */}
-//       <input
-//         type="file"
-//         webkitdirectory="true"
-//         onChange={handleFolderChange}
-//         style={{ display: 'block', marginTop: '10px' }}
-//       />
-
-//       {/* Add Another Folder */}
-//       <button
-//         onClick={() => document.querySelector('input[type="file"]').click()}
-//         style={{ display: 'block', marginTop: '10px' }}
-//       >
-//         Select Another Folder
-//       </button>
-
-//       {/* Selected Files Preview */}
-//       <div style={{ marginTop: '20px' }}>
-//         {selectedFiles.map((file) => (
-//           <div key={file.webkitRelativePath || file.name} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-//             <span style={{ marginRight: '10px' }}>{file.webkitRelativePath || file.name}</span>
-
-//             {/* Name Input */}
-//             <input
-//               type="text"
-//               placeholder="Enter file name"
-//               value={fileNames[file.webkitRelativePath || file.name] || ""}
-//               onChange={(e) => handleNameChange(e, file.webkitRelativePath || file.name)}
-//               style={{ marginRight: '10px' }}
-//             />
-
-//             {/* Remove Button */}
-//             <button onClick={() => removeFile(file.webkitRelativePath || file.name)}>X</button>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Submit Button */}
-//       <button
-//         type="button"
-//         onClick={handleSubmit}
-//         disabled={isLoading}
-//         className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-//       >
-//         {isLoading ? "Adding..." : "Add"}
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default AddFiles;
-
-// // import React, { useState } from 'react';
-// // import { storage, rtdb } from '../config/firebase';
-// // import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-// // import { ref as databaseRef, push, set } from "firebase/database";
-
-// // const AddFiles = () => {
-// //   const [uploadType, setUploadType] = useState("files"); // "files" or "folder"
-// //   const [selectedFiles, setSelectedFiles] = useState([]);
-// //   const [fileNames, setFileNames] = useState({});
-// //   const [isLoading, setIsLoading] = useState(false);
-
-// //   const handleFileChange = (e) => {
-// //     const files = Array.from(e.target.files);
-// //     setSelectedFiles(files);
-// //     files.forEach(file => {
-// //       setFileNames(prevFileNames => ({
-// //         ...prevFileNames,
-// //         [file.webkitRelativePath || file.name]: file.name // Default name
-// //       }));
-// //     });
-// //   };
-
-// //   const handleNameChange = (e, filePath) => {
-// //     const newName = e.target.value;
-// //     setFileNames(prevFileNames => ({
-// //       ...prevFileNames,
-// //       [filePath]: newName
-// //     }));
-// //   };
-
-// //   const removeFile = (filePath) => {
-// //     setSelectedFiles(prevFiles => prevFiles.filter(file => (file.webkitRelativePath || file.name) !== filePath));
-// //     setFileNames(prevFileNames => {
-// //       const newFileNames = { ...prevFileNames };
-// //       delete newFileNames[filePath];
-// //       return newFileNames;
-// //     });
-// //   };
-
-// //   const handleSubmit = async () => {
-// //     if (selectedFiles.length === 0) {
-// //       alert('Please select files or a folder to upload.');
-// //       return;
-// //     }
-
-// //     setIsLoading(true);
-
-// //     try {
-// //       const newEntryRef = push(databaseRef(rtdb, 'product_L'));
-// //       const newEntryKey = newEntryRef.key;
-
-// //       const uploadPromises = selectedFiles.map(async (file) => {
-// //         const filePath = file.webkitRelativePath || file.name;
-// //         const fileRef = storageRef(storage, `product_L/${newEntryKey}/${filePath}`);
-        
-// //         const snapshot = await uploadBytes(fileRef, file);
-// //         const downloadURL = await getDownloadURL(snapshot.ref);
-
-// //         const currentDate = new Date();
-// //         const jakartaOffset = 7 * 60 * 60 * 1000;
-// //         const jakartaTime = new Date(currentDate.getTime() + jakartaOffset).toISOString();
-
-// //         return {
-// //           name: fileNames[filePath],
-// //           url: downloadURL,
-// //           createdTime: jakartaTime,
-// //         };
-// //       });
-
-// //       const uploadedFiles = await Promise.all(uploadPromises);
-
-// //       await set(newEntryRef, {
-// //         files: uploadedFiles,
-// //       });
-
-// //       alert('Files uploaded successfully!');
-// //       setSelectedFiles([]);
-// //       setFileNames({});
-// //       window.location.reload();
-// //     } catch (error) {
-// //       console.error("Error uploading files:", error);
-// //       alert('Error uploading files. Please try again.');
-// //     } finally {
-// //       setIsLoading(false);
-// //     }
-// //   };
-
-// //   return (
-// //     <div>
-// //       <h2>Upload Files or Folder</h2>
-
-// //       {/* Toggle between File and Folder Upload */}
-// //       <label>
-// //         Select Upload Type: 
-// //         <select onChange={(e) => setUploadType(e.target.value)} value={uploadType}>
-// //           <option value="files">Files</option>
-// //           <option value="folder">Folder</option>
-// //         </select>
-// //       </label>
-
-// //       {/* File/Folder Input */}
-// //       <input
-// //         type="file"
-// //         multiple={uploadType === "files"}
-// //         webkitdirectory={uploadType === "folder" ? "true" : undefined}
-// //         onChange={handleFileChange}
-// //         style={{ display: 'block', marginTop: '10px' }}
-// //       />
-
-// //       {/* Selected Files Preview */}
-// //       <div style={{ marginTop: '20px' }}>
-// //         {selectedFiles.map((file) => (
-// //           <div key={file.webkitRelativePath || file.name} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-// //             <span style={{ marginRight: '10px' }}>{file.webkitRelativePath || file.name}</span>
-
-// //             {/* Name Input */}
-// //             <input
-// //               type="text"
-// //               placeholder="Enter file name"
-// //               value={fileNames[file.webkitRelativePath || file.name] || ""}
-// //               onChange={(e) => handleNameChange(e, file.webkitRelativePath || file.name)}
-// //               style={{ marginRight: '10px' }}
-// //             />
-
-// //             {/* Remove Button */}
-// //             <button onClick={() => removeFile(file.webkitRelativePath || file.name)}>X</button>
-// //           </div>
-// //         ))}
-// //       </div>
-
-// //       {/* Submit Button */}
-// //       <button
-// //         type="button"
-// //         onClick={handleSubmit}
-// //         disabled={isLoading}
-// //         className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-// //       >
-// //         {isLoading ? "Adding..." : "Add"}
-// //       </button>
-// //     </div>
-// //   );
-// // };
-
-// // export default AddFiles;
 
 // // // import React, { useState } from 'react';
 // // // import { storage, rtdb } from '../config/firebase';

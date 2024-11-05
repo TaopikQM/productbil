@@ -106,17 +106,7 @@ const FilesList = () => {
             <option key={year} value={year}>{year}</option>
           ))}
         </select>
-        <select
-          value={monthFilter}
-          onChange={(e) => setMonthFilter(e.target.value)}
-          className="p-2 border rounded w-full md:w-auto"
-        >
-          <option value="">Filter by Month</option>
-          {/* Options for months */}
-          {Array.from({ length: 12 }, (_, i) => i).map(month => (
-            <option key={month} value={month}>{new Date(0, month).toLocaleString('en', { month: 'long' })}</option>
-          ))}
-        </select>
+       
       </div>
 
       {/* File Display */}
@@ -181,6 +171,17 @@ const FilesList = () => {
 
 export default FilesList;
 
+ // <select
+        //   value={monthFilter}
+        //   onChange={(e) => setMonthFilter(e.target.value)}
+        //   className="p-2 border rounded w-full md:w-auto"
+        // >
+        //   <option value="">Filter by Month</option>
+        //   {/* Options for months */}
+        //   {Array.from({ length: 12 }, (_, i) => i).map(month => (
+        //     <option key={month} value={month}>{new Date(0, month).toLocaleString('en', { month: 'long' })}</option>
+        //   ))}
+        // </select>
 // import React, { useState, useEffect } from 'react';
 // import { ref, onValue, remove, child, getDatabase, update } from 'firebase/database';
 // import { rtdb, storage } from '../config/firebase';

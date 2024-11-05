@@ -88,7 +88,7 @@ const AddFiles = () => {
   };
 
   return (
-   <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-black p-6">
+   <div className="flex flex-col items-center justify-center text-black p-6">
   <h2 className="text-2xl font-semibold mb-4">Upload Files or Folder</h2>
 
   {/* Toggle between File and Folder Upload */}

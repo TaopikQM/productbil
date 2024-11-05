@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 import AddFiles from '../components/AddFiles';
 import FilesList from '../components/FilesList';
 
-const AddFiles = () => {
+const addFiles = () => {
   const [showForm, setShowForm] = useState(false);
   const [isDayMode, setIsDayMode] = useState(true); // State for day/night mode
 
@@ -43,7 +43,7 @@ const AddFiles = () => {
   );
 };
 
-export default AddFiles;
+export default addFiles;
 
 // "use client";
 

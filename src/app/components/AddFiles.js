@@ -88,7 +88,7 @@ const AddFiles = () => {
   };
 
   return (
-    <div>
+    <div  className=" text-black"> 
       <h2>Upload Files or Folder</h2>
 
       {/* Toggle between File and Folder Upload */}

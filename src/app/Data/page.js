@@ -21,16 +21,33 @@ const addFiles = () => {
   };
 
   return (
-    <div>
+    <div className={isDayMode ? 'bg-white text-black' : 'bg-gray-800 text-white'}> {/* Conditional class names */}
       <ContainerAw>
         <div className="flex items-center justify-between mb-4">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={toggleForm}>
+          <button 
+            className={`py-2 px-4 rounded ${isDayMode ? 'bg-blue-500 hover:bg-blue-700' : 'bg-blue-700 hover:bg-blue-500'}`} 
+            onClick={toggleForm}
+          >
             Add Files
           </button>
-          <button 
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" 
-            onClick={toggleDayNightMode}
-          >
+          
+              <div className="flex items-center">
+            {/* Toggle Switch */}
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={isDayMode} 
+                onChange={toggleDayNightMode} 
+                className="sr-only" 
+              />
+              <div className="w-12 h-6 bg-gray-200 rounded-full dark:bg-gray-600 transition-colors duration-300 ease-in-out"></div>
+              <div className={`absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transition-transform duration-300 ease-in-out ${isDayMode ? 'translate-x-6' : ''}`}></div>
+            </label>
+            {/* Icons for day/night mode */}
+            <span className="ml-2 text-sm">
+              {isDayMode ? '☀️' : '🌙'}
+            </span>
+          </div>
             {isDayMode ? 'Switch to Night Mode' : 'Switch to Day Mode'}
           </button>
         </div>
@@ -41,9 +58,12 @@ const addFiles = () => {
       </ContainerAw>
     </div>
   );
+  );
 };
 
 export default addFiles;
+
+
 
 // "use client";
 

@@ -52,9 +52,9 @@ const addFiles = () => {
            
         </div>
         
-        {showForm && <AddFiles />}
+        {showForm && <AddFiles2 />}
         <br />
-        <FilesList isDayMode={isDayMode} /> {/* Pass isDayMode prop */}
+        <FilesList2 isDayMode={isDayMode} /> {/* Pass isDayMode prop */}
       </ContainerAw>
     </div>
 

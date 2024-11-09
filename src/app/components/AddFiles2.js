@@ -46,12 +46,12 @@ const AddF = () => {
     setIsLoading(true);
 
     try {
-      const newEntryRef = push(databaseRef(rtdb, 'product_W'));
+      const newEntryRef = push(databaseRef(rtdb, 'product_P'));
       const newEntryKey = newEntryRef.key;
 
       const uploadPromises = selectedFiles.map(async (file) => {
         const filePath = file.webkitRelativePath || file.name;
-        const fileRef = storageRef(storage, `product_W/${newEntryKey}/${filePath}`);
+        const fileRef = storageRef(storage, `product_P/${newEntryKey}/${filePath}`);
         
         const snapshot = await uploadBytes(fileRef, file);
         const downloadURL = await getDownloadURL(snapshot.ref);

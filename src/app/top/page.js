@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import ContainerAw from '../components/containerAw';
 import Navbar from '../components/Navbar';
-import AddFiles from '../components/AddFiles';
+import AddFiles2 from '../components/AddFiles2';
 import FilesList2 from '../components/FilesList2';
 
 const addFiles = () => {
@@ -52,7 +52,7 @@ const addFiles = () => {
            
         </div>
         
-        {showForm && <AddFiles />}
+        {showForm && <AddFiles2 />}
         <br />
         <FilesList2 isDayMode={isDayMode} /> {/* Pass isDayMode prop */}
       </ContainerAw>

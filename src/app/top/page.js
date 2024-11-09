@@ -14,7 +14,7 @@ const addFiles = () => {
 
   const toggleForm = () => {
     setShowForm(!showForm);
-  };
+  };  
 
   const toggleDayNightMode = () => {
     setIsDayMode(prev => !prev);

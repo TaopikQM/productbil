@@ -19,7 +19,7 @@ const FilesList2 = ({isDayMode}) => {
   // Firebase setup
   useEffect(() => {
     const db = getDatabase();
-    const filesRef = databaseRef(db, 'product_W');
+    const filesRef = databaseRef(db, 'product_P');
 
     onValue(filesRef, (snapshot) => {
       const data = snapshot.val();

@@ -3,7 +3,7 @@ import { storage, rtdb } from '../config/firebase';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { ref as databaseRef, push, set } from "firebase/database";
 
-const AddFiles2 = () => {
+const AddF = () => {
   const [uploadType, setUploadType] = useState("files"); // "files" or "folder"
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileNames, setFileNames] = useState({});
@@ -151,4 +151,4 @@ const AddFiles2 = () => {
   );
 };
 
-export default AddFiles2;
+export default AddF;
